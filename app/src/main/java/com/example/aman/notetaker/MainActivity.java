@@ -19,21 +19,25 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<Data> arrayList =new ArrayList<>();
-    int count=0;
+    ArrayList<Data> arrayList;
+    int count;
     RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        final TaskDatabase taskDatabase = new TaskDatabase(this);
+       if(taskDatabase.getAllDatas()!=null)
+           arrayList=taskDatabase.getAllDatas();
+       else
+           arrayList=new ArrayList<>();
+        count=arrayList.size();
         final MyAdapter myAdapter=new MyAdapter(arrayList);
         recyclerView=findViewById(R.id.rView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(myAdapter);
         final View viewAlert = LayoutInflater.from(this).inflate(R.layout.alert_dialogue, null);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         final AlertDialog alertDialog=new AlertDialog.Builder(this).setView(viewAlert).
@@ -43,7 +47,10 @@ public class MainActivity extends AppCompatActivity {
                         count++;
                         EditText etHead=viewAlert.findViewById(R.id.tvHeadAlert);
                         EditText etContent=viewAlert.findViewById(R.id.tvContentAlert);
-                        arrayList.add(new Data(""+count,etHead.getText().toString(),etContent.getText().toString()));
+
+                        Data data =new Data(""+count,etHead.getText().toString(),etContent.getText().toString());
+                        arrayList.add(data);
+                        taskDatabase.insert(data);
                         myAdapter.notifyDataSetChanged();
                         etHead.setText("");
                         etContent.setText("");
