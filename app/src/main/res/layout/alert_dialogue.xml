@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/tvHeadAlert"
+      android:hint="Head Of The Content"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="@font/aclonica"
+        android:textSize="24sp"
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <EditText
+            android:id="@+id/tvContentAlert"
+            android:layout_width="match_parent"
+            android:inputType="textMultiLine"
+            android:layout_height="match_parent"
+            android:hint="Enter the notes"
+            android:fontFamily="@font/bad_script"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+    </ScrollView>
+</LinearLayout>
